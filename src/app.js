@@ -6,6 +6,7 @@ import { iniciaPassport } from './config/passport.config.js';
 import { router as sessionsRouter } from './routes/sessionRouter.js';
 import { router as cartRouter} from "./routes/cartRouter.js";
 import { router as productRouter } from "./routes/productRouter.js";
+import { router as indexRouter} from "./routes/indexRouter.js"
 import { config } from './config/config.js';
 
 const PORT = config.PORT;
@@ -24,6 +25,7 @@ app.use(passport.initialize());
 app.use("/api/sessions", sessionsRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/products", productRouter);
+app.use("/", indexRouter);
 
 app.get('/',(req,res) => {
     res.setHeader('Content-Type','text/plain');
