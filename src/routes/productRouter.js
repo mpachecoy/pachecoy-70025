@@ -1,9 +1,8 @@
 import { Router } from "express";
-import productManage from "../managers/productManage.js";
 import { checkProductData  } from "../middlewares/checkProductData.middleware.js";
-import productDao from "../dao/product.dao.js";
+import { productDao } from "../dao/productDao.js";
 
-const router = Router();
+export const router = Router();
 
 router.get("/", async (req, res) =>{
     try {
@@ -80,7 +79,7 @@ router.delete("/:pid", async (req, res) =>{
         const { pid } = req.params;
         const product = await productDao.deleteOne(pid);
         if(!product) return res.status(404).json({ status: "error", msg: "Prodcuto no encontrado"});
-        await productManage.deleteProduct(pid);
+        await productDao.deleteProduct(pid);
     
         res.status(200).json({status:"ok", msg: `Producto eliminad con exito ${pid}`});
     } catch (error) {
@@ -89,4 +88,4 @@ router.delete("/:pid", async (req, res) =>{
     };
 });
 
-export default router;
+

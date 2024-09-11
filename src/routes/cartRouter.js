@@ -1,10 +1,11 @@
 import { Router } from "express";
-import cartDao from "../dao/cart.dao.js";
+import { cartDao } from "../dao/cartDao.js";
 import { checkProductAndCart } from "../middlewares/checkProdcuctAndCart.middleware.js";
+import { auth } from "../middlewares/auth.js";
 
-const router = Router();
+export const router = Router();
 
-router.post("/", async (req, res) => {
+router.post("/", auth,  async (req, res) => {
     try {
         const cart = await cartDao.create();
 
@@ -15,7 +16,7 @@ router.post("/", async (req, res) => {
     };
 });
 
-router.get("/:cid", async (req, res) => {
+router.get("/:cid", auth , async (req, res) => {
     try {
         const { cid } = req.params;
         const cart = await cartDao.getById(cid)
@@ -28,7 +29,7 @@ router.get("/:cid", async (req, res) => {
     };
 });
 
-router.post("/:cid/product/:pid", checkProductAndCart, async (req, res) => {
+router.post("/:cid/product/:pid", auth , checkProductAndCart, async (req, res) => {
     try {
         const { cid, pid } = req.params;
 
@@ -41,7 +42,7 @@ router.post("/:cid/product/:pid", checkProductAndCart, async (req, res) => {
     };
 });
 
-router.delete("/:cid/product/:pid", checkProductAndCart, async (req, res) =>{
+router.delete("/:cid/product/:pid", auth, checkProductAndCart, async (req, res) =>{
     try {
         const { cid, pid } = req.params;
         const cart = await cartDao.deleteProductInCart(cid, pid);
@@ -53,7 +54,7 @@ router.delete("/:cid/product/:pid", checkProductAndCart, async (req, res) =>{
     };
 });
 
-router.put("/:cid/product/:pid", checkProductAndCart, async (req, res, quantity) =>{
+router.put("/:cid/product/:pid", auth,  checkProductAndCart, async (req, res, quantity) =>{
     try {
         const { cid, pid } = req.params;
         const { quantity } = req.body;
@@ -66,7 +67,7 @@ router.put("/:cid/product/:pid", checkProductAndCart, async (req, res, quantity)
     };
 });
 
-router.delete("/:cid", async (req, res) =>{
+router.delete("/:cid", auth,  async (req, res) =>{
     try {
         const { cid } = req.params;
         const cart = await cartDao.getById(cid);
@@ -84,4 +85,3 @@ router.delete("/:cid", async (req, res) =>{
 
 
 
-export default router;

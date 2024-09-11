@@ -45,12 +45,12 @@ export const iniciaPassport = () => {
         "login",
         new local.Strategy(
             {
-                usernameField:"email"
+                usernameField: "email"
             },
             async( username, password, done ) => { 
                 try {
-                    let usuario = await usuariosDAO.getBy({ email:username });
-                    if(!usuario){
+                    let usuario = await usuariosDAO.getBy({ email: username });
+                    if(!usuario || !usuario.password){
                         console.log("usuario invalido");
                         return done( null, false );
                     };
@@ -79,13 +79,13 @@ export const iniciaPassport = () => {
             },
             async( t, rt, profile, done ) => {
                 try {
-                    let {email, name} = profile._json;
+                    let { email, name } = profile._json;
                     if(!email){
                         return done( null, false );
                     };
-                    let usuario = await UsuariosDAO.getBy({ email });
+                    let usuario = await usuariosDAO.getBy({ email });
                     if(!usuario){
-                        usuario = await UsuariosDAO.create({
+                        usuario = await usuariosDAO.create({
                             nombre: name, 
                             email, 
                             profile
@@ -100,11 +100,4 @@ export const iniciaPassport = () => {
         )
     );
 
-    passport.serializeUser(( user, done ) => {
-        return done( null, user );
-    });
-
-    passport.deserializeUser(( user, done ) => {
-        return done( null, user );
-    });
 };

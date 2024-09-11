@@ -9,7 +9,7 @@ router.get("/error", (req, res) => {
     return res.status(400).json({error:`Error en passport`});
 });
 
-router.post('/registro', passport.authenticate("registro", {failureRedirect:"/api/sessions/error"}), (req,res) => {
+router.post('/registro', passport.authenticate("registro", {failureRedirect:"/api/sessions/error", session: false}), (req,res) => {
     
     res.setHeader('Content-Type','application/json');
     res.status(201).json({ 
@@ -18,7 +18,7 @@ router.post('/registro', passport.authenticate("registro", {failureRedirect:"/ap
     });
 });
 
-router.post("/login", passport.authenticate("login", {failureRedirect:"/api/sessions/error"}), (req, res) => {
+router.post("/login", passport.authenticate("login", {failureRedirect:"/api/sessions/error", session: false}), (req, res) => {
 
     let token = generaJWT(req.user);
 
@@ -34,7 +34,7 @@ router.get("/github", passport.authenticate("github", {}), (req, res) => {
 
 });
 
-router.get("/callbackGithub", passport.authenticate("github", {failureRedirect:"/api/sessions/error"}), (req, res) => {
+router.get("/callbackGithub", passport.authenticate("github", {failureRedirect:"/api/sessions/error", session: false}), (req, res) => {
 
     delete req.user.profile;
     let token = generaJWT(req.user);
