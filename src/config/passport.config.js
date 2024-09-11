@@ -1,7 +1,7 @@
 import passport from "passport"
 import github from "passport-github2"
 import local from "passport-local"
-import { UsuariosDAO } from "../dao/usuarioDao.js"
+import { usuariosDAO } from "../dao/usuarioDao.js"
 import { generaHash, validaPass } from "../utils.js"
 
 export const iniciaPassport = () => {
@@ -17,22 +17,22 @@ export const iniciaPassport = () => {
                 try {
                     let { nombre } = req.body;
                     if(!nombre){
-
                         console.log("falta nombre");
                         return done(null, false);
                     };
 
-                    let existe = await UsuariosDAO.getBy({ email:username });
+                    let existe = await usuariosDAO.getBy({ email: username });
                     if(existe){
                         console.log("usuario repetido");
                         return done(null, false);
                     };
 
-                    let nuevoUsuario = await UsuariosDAO.create({
+                    let nuevoUsuario = await usuariosDAO.create({
                         nombre, 
                         email: username,
                         password: generaHash( password )
                     });
+
                     return done( null, nuevoUsuario );
                 } catch (error) {
                     return done(error);
@@ -49,7 +49,7 @@ export const iniciaPassport = () => {
             },
             async( username, password, done ) => { 
                 try {
-                    let usuario = await UsuariosDAO.getBy({ email:username });
+                    let usuario = await usuariosDAO.getBy({ email:username });
                     if(!usuario){
                         console.log("usuario invalido");
                         return done( null, false );

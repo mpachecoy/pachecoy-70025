@@ -7,9 +7,9 @@ import { iniciaPassport } from './config/passport.config.js';
 import { router as sessionsRouter } from './routes/sessionRouter.js';
 import { config } from './config/config.js';
 
-const PORT=config.PORT;
+const PORT = config.PORT;
 
-const app=express();
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
@@ -45,10 +45,10 @@ const server = app.listen(PORT,() => {
 const connDB = async() => {
     try {
         await mongoose.connect(
-            config.MONGO_URL,
-        {
-            dbName: config.DB_NAME
-        }
+                config.MONGO_URL,
+            {
+                dbName: config.DB_NAME
+            }
         );
         console.log("DB conectada...!!!");
     } catch (error) {

@@ -1,12 +1,12 @@
 
-import { usuariosModelo } from "./models/usuarioModel.js";
+import { userModel } from "./models/userModel.js";
 
-export class UsuariosDAO{
+export class usuariosDAO{
     static async getBy(filtro = {}){
-        return await usuariosModelo.findOne(filtro).lean()
+        return await userModel.findOne(filtro).lean();
     };
 
     static async create(usuario){
-        return (await usuariosModelo.create(usuario)).toJSON()
+        return (await userModel.create(usuario)).toJSON();
     };
 };
