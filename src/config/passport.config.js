@@ -15,8 +15,8 @@ export const iniciaPassport = () => {
             },
             async( req, username, password, done ) => {
                 try {
-                    let { nombre } = req.body;
-                    if(!nombre){
+                    let { first_name } = req.body;
+                    if(!first_name){
                         console.log("falta nombre");
                         return done(null, false);
                     };
@@ -28,7 +28,8 @@ export const iniciaPassport = () => {
                     };
 
                     let nuevoUsuario = await usuariosDAO.create({
-                        nombre, 
+                        first_name,
+                        last_name,
                         email: username,
                         password: generaHash( password )
                     });

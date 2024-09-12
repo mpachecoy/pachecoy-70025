@@ -1,6 +1,6 @@
 export const config = {
     PORT: 3000,
-    MONGO_URL:"mongodb+srv://coderhouse:codercoder2023@cluster0.wpxpupc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    DB_NAME: "comis70025calse05-mp",
-    SECRET: "CoderCoder123"
+    MONGO_URL:"mongodb+srv://ingpachecoymartin70025:1234@comis70025entregapachec.zzdw8.mongodb.net/",
+    DB_NAME: "comis70025entregapachecoy",
+    SECRET: "PachePache123 "
 };
