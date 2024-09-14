@@ -1,8 +1,20 @@
-import passport from "passport"
-import github from "passport-github2"
-import local from "passport-local"
-import { usuariosDAO } from "../dao/usuarioDao.js"
-import { generaHash, validaPass } from "../utils.js"
+import passport from "passport";
+import github from "passport-github2";
+import passportJWT from "passport-jwt";
+import local from "passport-local";
+import { usuariosDAO } from "../dao/usuarioDao.js";
+import { generaHash, validaPass } from "../utils.js";
+import { SECRET } from "./config.js"
+
+const buscarToken = (req) =>{
+    let token = null;
+
+    if(req.cookies.CoderCookie){
+        token = req.cookies.CoderCookie;
+    };
+
+    return token;
+}
 
 export const iniciaPassport = () => {
 
@@ -100,5 +112,22 @@ export const iniciaPassport = () => {
             }
         )
     );
+
+    passport.use(
+        "current",
+        new passportJWT.Strategy(
+            {
+                secretOrKey: SECRET,
+                jwtFromRequest: new passportJWT.ExtractJwt.fromExtractors([buscarToken])
+            },
+            async (contenidoToken, done) => {
+                try {
+                    return done(null, contenidoToken);
+                } catch (error) {
+                    return done(error);
+                }
+            }
+        )
+    )
 
 };

@@ -151,9 +151,7 @@ const connDB = async () => {
 const creaData = async () => {
   let resultado = await mongoose.connection.collection("productos").drop();
   console.log(resultado);
-  resultado = await mongoose.connection
-    .collection("productos")
-    .insertMany(productos);
+  resultado = await mongoose.connection.collection("productos").insertMany(productos);
   console.log(resultado);
 };
 
