@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import { generaJWT } from '../utils.js';
+import { generaJWT, passportCall } from '../utils.js';
 
 export const router = Router();
 
@@ -18,15 +18,15 @@ router.post('/registro', passport.authenticate("registro", {failureRedirect:"/ap
     });
 });
 
-router.post("/login", passport.authenticate("login", {failureRedirect:"/api/sessions/error", session: false}), (req, res) => {
+router.post("/login", passportCall("login"), (req, res) => {
 
     let token = generaJWT(req.user);
+    res.cookie("CoderCookie", token);
 
     res.setHeader('Content-Type','application/json');
     return res.status(200).json({ 
         message: "Login exitoso", 
-        usuarioLogueado: req.user, 
-        token
+        usuarioLogueado: req.user
     });
 });
 

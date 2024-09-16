@@ -3,7 +3,8 @@ import github from "passport-github2";
 import passportJWT from "passport-jwt";
 import local from "passport-local";
 import { usuariosDAO } from "../dao/usuarioDao.js";
-import { generaHash, validaPass } from "../utils.js";
+import { generaJWT, validaJWT } from "../utils.js";
+import { generaHash, validaPassword } from "../utils.js"
 import { config } from "./config.js"
 
 const buscarToken = (req) =>{
@@ -27,9 +28,13 @@ export const iniciaPassport = () => {
             },
             async( req, username, password, done ) => {
                 try {
-                    let { first_name } = req.body;
+                    let { first_name, last_name } = req.body;
                     if(!first_name){
                         console.log("falta nombre");
+                        return done(null, false);
+                    };
+                    if(!last_name){
+                        console.log("falta apellido");
                         return done(null, false);
                     };
 
@@ -68,7 +73,7 @@ export const iniciaPassport = () => {
                         return done( null, false );
                     };
 
-                    if(!validaPass( password, usuario.password )){
+                    if(!validaPassword( password, usuario.password )){
                         console.log("password invalida");
                         return done( null, false );
                     };

@@ -1,0 +1,15 @@
+<h2>Registro usuarios:</h2>
+<hr>
+<form action="/api/sessions/registro" method="post">
+    <input type="text" name="first_name" id="nombre" placeholder="Nombre">
+    <input type="text" name="last_name" id="apellido" placeholder="Apellido">
+    <input type="email" name="email" id="email" placeholder="Correo electrónico">
+    <input type="password" name="password" id="password" placeholder="Contraseña">
+    <br>
+    <br>
+    <input type="submit" value="Registrar" id="btnSubmit">
+</form>
+
+<br>
+{{>menu}}
+<script src="/js/registro.js"></script>
