@@ -4,7 +4,7 @@ import passportJWT from "passport-jwt";
 import local from "passport-local";
 import { usuariosDAO } from "../dao/usuarioDao.js";
 import { generaHash, validaPass } from "../utils.js";
-import { SECRET } from "./config.js"
+import { config } from "./config.js"
 
 const buscarToken = (req) =>{
     let token = null;
@@ -14,7 +14,7 @@ const buscarToken = (req) =>{
     };
 
     return token;
-}
+};
 
 export const iniciaPassport = () => {
 
@@ -117,7 +117,7 @@ export const iniciaPassport = () => {
         "current",
         new passportJWT.Strategy(
             {
-                secretOrKey: SECRET,
+                secretOrKey: config.SECRET,
                 jwtFromRequest: new passportJWT.ExtractJwt.fromExtractors([buscarToken])
             },
             async (contenidoToken, done) => {
@@ -129,5 +129,4 @@ export const iniciaPassport = () => {
             }
         )
     )
-
 };
