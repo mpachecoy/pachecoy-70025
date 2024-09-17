@@ -125,9 +125,9 @@ export const iniciaPassport = () => {
                 secretOrKey: config.SECRET,
                 jwtFromRequest: new passportJWT.ExtractJwt.fromExtractors([buscarToken])
             },
-            async (contenidoToken, done) => {
+            async (usuario, done) => {
                 try {
-                    return done(null, contenidoToken);
+                    return done(null, usuario);
                 } catch (error) {
                     return done(error);
                 }

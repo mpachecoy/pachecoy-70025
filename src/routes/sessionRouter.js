@@ -46,3 +46,16 @@ router.get("/callbackGithub", passport.authenticate("github", {failureRedirect:"
         token 
     });
 });
+
+router.get('/usuario', passportCall("current"), (req,res)=>{
+    
+    let token = generaJWT(req.user);
+    res.cookie("CoderCookie", token);
+
+    res.setHeader('Content-Type','application/json');
+    return res.status(200).json({ 
+        message: "Perfil del Usuario", 
+        usuario: req.user, 
+        token
+    });
+});

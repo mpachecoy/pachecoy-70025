@@ -1,6 +1,13 @@
-<h2>Perfil {{usuario.nombre}}</h2>
+<h2> Bienvenido </h2>
 <hr>
+<h3><strong> {{usuario.first_name}} {{usuario.last_name}}</strong></h3>
 <p>Correo electrónico: <strong>{{usuario.email}}</strong></p>
+<p>Edad: <strong>{{usuario.age}}</strong></p>
+<p>Rol: <strong>{{usuario.role}}</strong></p>
+<p>Id: <strong>{{usuario._id}}</strong></p>
+<br>
+
+<a href="/cart/:cid">Ir al carrito</a>
 
 <br>
-{{>menu}}
+{{>menuusuarios}}

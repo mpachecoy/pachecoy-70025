@@ -1,0 +1,16 @@
+<ul></ul>
+    <li>
+        <a href="/">Home Page</a>
+    </li>
+
+    {{#if isLogin}}
+        <li>
+            <a href="/productos">productos</a>
+        </li>
+        <hr>
+    {{else}}
+        <li>
+            <a href="/api/sessions/logout?web=1">Cerrar Sesion </a>
+        </li>
+    {{/if}}
+</ul>

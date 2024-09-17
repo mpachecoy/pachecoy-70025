@@ -19,6 +19,14 @@ router.get('/registro',(req,res) =>{
     res.status(200).render('registro');
 });
 
+router.get('/usuario', auth, (req,res) =>{
+
+
+    res.status(200).render('usuario',{
+        usuario: req.user, isLogin:req.user
+    })
+})
+
 router.get('/productos', auth, async (req, res) => {
 
     let productos = await productDao.get();

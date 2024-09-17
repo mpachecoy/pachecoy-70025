@@ -2,16 +2,23 @@ const inputNombre = document.getElementById("nombre");
 const inputApellido = document.getElementById("apellido");
 const inputEmail = document.getElementById("email");
 const inputPassword = document.getElementById("password");
+const inputAge = document.getElementById("age");
+const inputRole = document.getElementById("role");
+
+console.log(inputAge)
+
 const btnSubmit = document.getElementById("btnSubmit");
 
 btnSubmit.addEventListener("click", async(e) =>{
     e.preventDefault();
     let first_name = inputNombre.value.trim();
     let last_name = inputApellido.value.trim();
+    let age = inputAge.value.trim();
+    let role = inputRole.value.trim();
     let email = inputEmail.value.trim();
     let password = inputPassword.value.trim();
 
-    if(!first_name || !last_name || !email || !password){
+    if(!first_name || !last_name || !email || !password ||!age || !role){
         alert("Complete los datos...!!!");
         return ;
     }
@@ -20,8 +27,11 @@ btnSubmit.addEventListener("click", async(e) =>{
         first_name,
         last_name,
         email, 
-        password
+        password,
+        role,
+        age
     });
+    
 
     let respuesta = await fetch("/api/sessions/registro", {
         method:"post",
