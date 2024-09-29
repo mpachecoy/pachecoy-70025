@@ -4,7 +4,7 @@ export const productsModel = mongoose.model(
     "products",
     new mongoose.Schema(
         {
-            title: { type: String, required: true },
+            title: String,
             description:  String ,
             code: { type: String, unique: true },
             stock: Number,

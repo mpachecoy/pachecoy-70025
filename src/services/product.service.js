@@ -9,20 +9,24 @@ class ProductsService{
         return await this.dao.get();
     };
 
-    async getBy(){
-        return await this.dao.getBy();
+    async getById(id){
+        let resultado = await this.dao.get({_id:id});
+        if(resultado.length>0) return resultado[0];
+        
+        return null;
     };
 
-    async create(){
-        return await this.dao.create();
+
+    async create(product){
+        return await this.dao.create(product);
     };
 
-    async update(){
-        return await this.dao.update();
+    async update(product){
+        return await this.dao.update(product);
     };
 
-    async delete(){
-        return await this.dao.delete();
+    async delete(filter){
+        return await this.dao.delete(filter);
     };
 
 }

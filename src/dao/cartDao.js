@@ -1,10 +1,17 @@
 import { cartsModel } from "./models/cartModel.js";
 
 export class CartDao {
-    static async getById(filter = {}){
-        return await cartsModel.findOne(filter).lean();
-    }
-    static async create(cart){
-        return (await cartsModel.create(user)).toJSON();
+    static async getBy(filter = {}){
+        return await cartsModel.findOne(filter).populate("products.product");
+    };
+
+    static async create(){
+        return await cartsModel.create({products:[]});
+    };
+
+    static async update(filter, cart){
+        return await cartsModel.updateOne(filter, cart)
     }
 }
+
+
