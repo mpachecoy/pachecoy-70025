@@ -1,6 +1,14 @@
+import dotenv from "dotenv";
+
+dotenv.config({
+    path:"./src/.env", 
+    override: true,
+});
+
 export const config = {
-    PORT: 3000,
-    MONGO_URL:"mongodb+srv://ingpachecoymartin70025:1234@comis70025entregapachec.zzdw8.mongodb.net/",
-    DB_NAME: "comis70025entregapachecoy",
-    SECRET: "PachePache123 "
+    PORT: process.env.PORT || 3000,
+    MONGO_URL: process.env.MONGO_URL,
+    DB_NAME: process.env.DB_NAME,
+    SECRET: process.env.SECRET
 };
+

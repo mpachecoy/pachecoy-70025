@@ -2,10 +2,9 @@ import passport from "passport";
 import github from "passport-github2";
 import passportJWT from "passport-jwt";
 import local from "passport-local";
-import { usuariosDAO } from "../dao/usuarioDao.js";
-import { generaJWT, validaJWT } from "../utils.js";
+import { UsersDAO } from "../dao/UsersDao.js";
 import { generaHash, validaPassword } from "../utils.js"
-import { config } from "./config.js"
+import { config } from "./config.js";
 
 const buscarToken = (req) =>{
     let token = null;
@@ -38,13 +37,13 @@ export const iniciaPassport = () => {
                         return done(null, false);
                     };
 
-                    let existe = await usuariosDAO.getBy({ email: username });
+                    let existe = await UsersDAO.getBy({ email: username });
                     if(existe){
                         console.log("usuario repetido");
                         return done(null, false);
                     };
 
-                    let nuevoUsuario = await usuariosDAO.create({
+                    let nuevoUsuario = await UsersDAO.create({
                         first_name,
                         last_name,
                         email: username,
@@ -67,7 +66,7 @@ export const iniciaPassport = () => {
             },
             async( username, password, done ) => { 
                 try {
-                    let usuario = await usuariosDAO.getBy({ email: username });
+                    let usuario = await UsersDAO.getBy({ email: username });
                     if(!usuario || !usuario.password){
                         console.log("usuario invalido");
                         return done( null, false );
@@ -101,9 +100,9 @@ export const iniciaPassport = () => {
                     if(!email){
                         return done( null, false );
                     };
-                    let usuario = await usuariosDAO.getBy({ email });
+                    let usuario = await UsersDAO.getBy({ email });
                     if(!usuario){
-                        usuario = await usuariosDAO.create({
+                        usuario = await UsersDAO.create({
                             nombre: name, 
                             email, 
                             profile
@@ -122,7 +121,7 @@ export const iniciaPassport = () => {
         "current",
         new passportJWT.Strategy(
             {
-                secretOrKey: config.SECRET,
+                secretOrKey: "PachePache123",
                 jwtFromRequest: new passportJWT.ExtractJwt.fromExtractors([buscarToken])
             },
             async (usuario, done) => {

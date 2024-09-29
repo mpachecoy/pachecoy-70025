@@ -1,6 +1,6 @@
 import { productsModel } from "./models/productModel.js";
 
-export class productDao {
+export class ProductsDao {
     static async get(){
         return await productsModel.find().lean();
     }

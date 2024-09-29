@@ -1,6 +1,6 @@
 import { cartsModel } from "./models/cartModel.js";
 
-export class cartDao {
+export class CartDao {
     static async getById(filter = {}){
         return await cartsModel.findOne(filter).lean();
     }

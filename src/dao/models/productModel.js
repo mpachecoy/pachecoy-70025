@@ -14,7 +14,7 @@ export const productsModel = mongoose.model(
             thumbnail: { type: Array, default: [] },
         },
         {
-            timestamps: true,
+            timestamps: true, strict: false
         }
     )
 );

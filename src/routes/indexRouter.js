@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { productDao } from "../dao/productDao.js";
+import { ProductsDao } from "../dao/ProductsDao.js";
 import { auth } from "../middlewares/auth.js";
 
 export const router = Router();
@@ -29,7 +29,7 @@ router.get('/usuario', auth, (req,res) =>{
 
 router.get('/productos', auth, async (req, res) => {
 
-    let productos = await productDao.get();
+    let productos = await ProductsDao.get();
 
     res.setHeader('Content-Type','text/html')
     res.status(200).render("productos",{ productos }) 
@@ -43,7 +43,7 @@ router.get('/producto', auth, async ( req,res )=>{
         return res.status(400).json({error:`Complete titulo`});
     };
 
-    let producto = await productDao.getBy({title});
+    let producto = await ProductsDao.getBy({title});
 
     res.setHeader('Content-Type','text/html');
     res.status(200).render("producto",{ producto });

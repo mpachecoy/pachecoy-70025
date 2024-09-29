@@ -9,7 +9,7 @@ router.get("/error", (req, res) => {
     return res.status(400).json({error:`Error en passport`});
 });
 
-router.post('/registro', passport.authenticate("registro", {failureRedirect:"/api/sessions/error", session: false}), (req,res) => {
+router.post('/registro', passportCall("registro"), (req,res) => {
     
     res.setHeader('Content-Type','application/json');
     res.status(201).json({ 
