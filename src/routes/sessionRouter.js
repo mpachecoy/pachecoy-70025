@@ -4,12 +4,12 @@ import { generaJWT, passportCall } from '../utils.js';
 
 export const router = Router();
 
-router.get("/error", (req, res) => {
-    res.setHeader('Content-Type','application/json');
-    return res.status(400).json({error:`Error en passport`});
-});
+// router.get("/error", (req, res) => {
+//     res.setHeader('Content-Type','application/json');
+//     return res.status(400).json({error:`Error en passport`});
+// });
 
-router.post('/registro', passportCall("registro"), (req,res) => {
+router.post('/register', passportCall("register"), (req,res) => {
     
     res.setHeader('Content-Type','application/json');
     res.status(201).json({ 
@@ -17,6 +17,7 @@ router.post('/registro', passportCall("registro"), (req,res) => {
         usuarioRegistrado: req.user 
     });
 });
+
 
 router.post("/login", passportCall("login"), (req, res) => {
 

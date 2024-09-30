@@ -33,7 +33,7 @@ btnSubmit.addEventListener("click", async(e) =>{
     });
     
 
-    let respuesta = await fetch("/api/sessions/registro", {
+    let respuesta = await fetch("/api/sessions/register", {
         method:"post",
         headers:{
             "Content-Type":"application/json"

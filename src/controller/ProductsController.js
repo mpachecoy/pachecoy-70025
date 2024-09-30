@@ -62,9 +62,9 @@ export default class ProductsController{
     static async create(req, res){
         try {
             const body = req.body;
-            const product = await productsService.create(body);
+            const newProduct = await productsService.create(body);
     
-            res.status(201).json({ status: "ok", product });
+            res.status(201).json({ status: "ok", newProduct });
     
         } catch (error) {
             console.log(error);

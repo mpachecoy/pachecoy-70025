@@ -9,11 +9,11 @@ export const userModel = mongoose.model(
             email: {type: String, unique: true},
             age: Number,
             password: String,
-            cart: String,
-            role: String
+            cart:  { type: mongoose.Schema.Types.ObjectId, ref:"carts" },
+            role: { type: String, default: "user" }
         },
         {
-            timestamps:true
+            timestamps:true, strict: false
         }
     )
 )

@@ -7,7 +7,7 @@ export class UsersDAO{
     };
 
     static async create(user){
-        return (await userModel.create(user)).toJSON();
+        return await userModel.create(user);
     };
     
 };

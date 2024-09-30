@@ -10,15 +10,15 @@ export const generaJWT = usuario => jwt.sign( usuario, config.SECRET, { expiresI
 export const validaJWT = token => jwt.verify( token, config.SECRET );   
 
 export const passportCall = estrategia => (req, res, next) => {
-    passport.authenticate(estrategia, (error, usuario, info) => {
+    passport.authenticate(estrategia, (error, user, info) => {
         if(error) { return next(error) };
 
-        if(!usuario){  
+        if(!user){  
             res.setHeader('Content-Type','application/json');
             return res.status(400).json({ error:`${info.message?info.message:info.toString() }`});
         };
 
-        req.user = usuario;
+        req.user = user;
         next();
 
     })(req, res, next);

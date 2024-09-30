@@ -5,6 +5,8 @@ import local from "passport-local";
 import { UsersDAO } from "../dao/UsersDao.js";
 import { generaHash, validaPassword } from "../utils.js"
 import { config } from "./config.js";
+import { usersService } from "../services/users.service.js";
+import { cartService } from "../services/cart.service.js";
 
 const buscarToken = (req) =>{
     let token = null;
@@ -19,7 +21,7 @@ const buscarToken = (req) =>{
 export const iniciaPassport = () => {
 
     passport.use(
-        "registro",
+        "register",
         new local.Strategy(
             {
                 passReqToCallback: true, 
@@ -27,31 +29,30 @@ export const iniciaPassport = () => {
             },
             async( req, username, password, done ) => {
                 try {
-                    let { first_name, last_name } = req.body;
-                    if(!first_name){
+                    let { first_name: name, ...data } = req.body;
+                    if(!name){
                         console.log("falta nombre");
-                        return done(null, false);
-                    };
-                    if(!last_name){
-                        console.log("falta apellido");
-                        return done(null, false);
+                        return done(null, false, {message:"Nombre es requerido"});
                     };
 
-                    let existe = await UsersDAO.getBy({ email: username });
+                    let existe = await usersService.getUserByEmail(username);
                     if(existe){
                         console.log("usuario repetido");
-                        return done(null, false);
+                        return done(null, false, {message:"email existe en db"});
                     };
 
-                    let nuevoUsuario = await UsersDAO.create({
-                        first_name,
-                        last_name,
+                    let newCart = await cartService.createCart();
+                    let newUser = await usersService.createUser({
+                        name,
+                        ...data,
                         email: username,
+                        cart: newCart._id,
                         password: generaHash( password )
                     });
 
-                    return done( null, nuevoUsuario );
+                    return done( null, newUser );
                 } catch (error) {
+                    console.log(error.message)
                     return done(error);
                 }
             }
@@ -66,19 +67,17 @@ export const iniciaPassport = () => {
             },
             async( username, password, done ) => { 
                 try {
-                    let usuario = await UsersDAO.getBy({ email: username });
-                    if(!usuario || !usuario.password){
-                        console.log("usuario invalido");
-                        return done( null, false );
+                    let user = await usersService.getUserByEmail(username);
+                    if(!user || !user.password){
+                        return done( null, false, {message:"Credenciales invalidas"} );
                     };
 
-                    if(!validaPassword( password, usuario.password )){
-                        console.log("password invalida");
-                        return done( null, false );
+                    if(!validaPassword( password, user.password )){
+                        return done( null, false, {message:"Credenciales invalidas"} );
                     };
 
-                    delete usuario.password;
-                    return done( null, usuario );
+                    delete user.password;
+                    return done( null, user );
                 } catch (error) {
                     return done(error);
                 }
