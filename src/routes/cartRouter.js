@@ -2,14 +2,15 @@ import { Router } from "express";
 import { CartDao } from "../dao/CartDao.js";
 import { auth } from "../middlewares/auth.js";
 import CartController from "../controller/CartController.js";
+import { passportCall } from "../utils.js";
 
 export const router = Router();
 
 router.post("/", CartController.createCart);
 
-router.get("/:cid", CartController.getBy);
+router.get("/:cid", passportCall("current"), CartController.getBy);
 
-router.post("/:cid/product/:pid", CartController.addProductToCart);
+router.post("/:cid/product/:pid", passportCall("current"), CartController.addProductToCart);
 
 router.delete("/:cid", auth,  async (req, res) =>{
     try {

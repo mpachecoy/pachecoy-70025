@@ -16,13 +16,12 @@ class ProductsService{
         return null;
     };
 
-
     async create(product){
         return await this.dao.create(product);
     };
 
-    async update(product){
-        return await this.dao.update(product);
+    async update(filter, product){
+        return await this.dao.update(filter, product);
     };
 
     async delete(filter){

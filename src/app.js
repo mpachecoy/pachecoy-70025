@@ -15,7 +15,7 @@ const PORT = config.PORT;
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(express.urlencoded({ extended:true }));
 app.use(express.static("./src/public"));
 app.engine("handlebars", engine());

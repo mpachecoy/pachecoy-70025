@@ -79,7 +79,7 @@ export default class ProductsController{
             if(!product) return res.status(404).json({ status: "error", msg: "Prodcuto no encontrado"});
             await productsService.delete(pid);
         
-            res.status(200).json({status:"ok", msg: `Producto eliminad con exito ${pid}`});
+            res.status(200).json({status:"ok", msg: `Producto eliminado con exito ${pid}`});
         } catch (error) {
             console.log(error);
             res.status(500).json({ status: "error", msg: "Error interno del servidor"});

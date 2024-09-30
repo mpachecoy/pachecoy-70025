@@ -120,7 +120,7 @@ export const iniciaPassport = () => {
         "current",
         new passportJWT.Strategy(
             {
-                secretOrKey: "PachePache123",
+                secretOrKey: config.SECRET,
                 jwtFromRequest: new passportJWT.ExtractJwt.fromExtractors([buscarToken])
             },
             async (usuario, done) => {

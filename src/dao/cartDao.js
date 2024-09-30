@@ -10,8 +10,12 @@ export class CartDao {
     };
 
     static async update(filter, cart){
-        return await cartsModel.updateOne(filter, cart)
-    }
-}
+        return await cartsModel.updateOne(filter, cart);
+    };
+
+    static async delete(id){
+        return await productsModel.findByIdAndDelete(id).lean();
+    };
+};
 
 
