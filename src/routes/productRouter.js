@@ -1,5 +1,7 @@
 import { Router } from "express";
 import ProductsController from "../controller/ProductsController.js";
+import { permiso } from "../middlewares/permiso.js"
+import { passportCall } from "../utils.js";
 
 
 export const router = Router();
@@ -7,7 +9,7 @@ export const router = Router();
 router.get("/", ProductsController.getProducts);
 router.get("/:pid", ProductsController.getBy);
 router.put("/:pid", ProductsController.update);
-router.post("/", ProductsController.create);
+router.post("/", passportCall("current"), permiso("Admin"),  ProductsController.create);
 router.delete("/:pid", ProductsController.delete);
 
 

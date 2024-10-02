@@ -18,7 +18,6 @@ router.post('/register', passportCall("register"), (req,res) => {
     });
 });
 
-
 router.post("/login", passportCall("login"), (req, res) => {
 
     let token = generaJWT(req.user);
