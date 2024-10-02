@@ -19,7 +19,11 @@ class CartService{
             return await this.dao.getBy({_id:id});
         }
         throw new Error(`Problemas al actualizar cart ${id}`);
-    }
+    };
+
+    async deleteCart(id){
+        return await this.dao.delete(id);
+    };
 }
 
 export const cartService = new CartService(DAO);
