@@ -29,8 +29,8 @@ export const iniciaPassport = () => {
             },
             async( req, username, password, done ) => {
                 try {
-                    let { first_name: name, ...data } = req.body;
-                    if(!name){
+                    let { first_name, last_name, ...data } = req.body;
+                    if(!first_name){
                         console.log("falta nombre");
                         return done(null, false, {message:"Nombre es requerido"});
                     };
@@ -43,7 +43,8 @@ export const iniciaPassport = () => {
 
                     let newCart = await cartService.createCart();
                     let newUser = await usersService.createUser({
-                        name,
+                        first_name,
+                        last_name,
                         ...data,
                         email: username,
                         cart: newCart._id,

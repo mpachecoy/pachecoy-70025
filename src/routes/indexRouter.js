@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { ProductsDao } from "../dao/ProductsDao.js";
 import { auth } from "../middlewares/auth.js";
+import { productsService } from "../services/product.service.js";
+import ProductsController from "../controller/ProductsController.js";
+import CartCootroller from "../controller/CartController.js"
+import CartController from "../controller/CartController.js";
+import { UserDTO } from "../DTO/UserDTO.js";
 
 export const router = Router();
 
@@ -21,30 +26,37 @@ router.get('/registro',(req,res) =>{
 
 router.get('/usuario', auth, (req,res) =>{
 
+    let usuario = req.user;
+
+    usuario = new UserDTO(usuario);
 
     res.status(200).render('usuario',{
-        usuario: req.user, isLogin:req.user
+        usuario, 
+        isLogin:req.user
     })
 })
 
 router.get('/productos', auth, async (req, res) => {
 
-    let productos = await ProductsDao.get();
+    let productos = await productsService.getProdcuts();
 
     res.setHeader('Content-Type','text/html')
     res.status(200).render("productos",{ productos }) 
 });
 
-router.get('/producto', auth, async ( req,res )=>{
+// router.get("/productos", auth, ProductsController.getProducts)
 
-    let { title } = req.query;
-    if(!title){
+router.get('/cart', auth, async ( req,res )=>{
+
+    let { cid } = req.query;
+    console.log(cid)
+    if(!cid){
         res.setHeader('Content-Type','application/json');
-        return res.status(400).json({error:`Complete titulo`});
+        return res.status(400).json({error:`Carrito no encontrado`});
     };
 
-    let producto = await ProductsDao.getBy({title});
+    let cart = await CartController.getBy( cid );
 
     res.setHeader('Content-Type','text/html');
-    res.status(200).render("producto",{ producto });
+    res.status(200).render("producto",{ cart });
 });
