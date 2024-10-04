@@ -1,6 +1,4 @@
 import { Router } from "express";
-import { CartDao } from "../dao/CartDao.js";
-import { auth } from "../middlewares/auth.js";
 import CartController from "../controller/CartController.js";
 import { passportCall } from "../utils.js";
 

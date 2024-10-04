@@ -46,7 +46,7 @@ router.get('/productos', auth, async (req, res) => {
 
 // router.get("/productos", auth, ProductsController.getProducts)
 
-router.get('/cart', auth, async ( req,res )=>{
+router.get('/:cart', auth, async ( req,res )=>{
 
     let { cid } = req.query;
     console.log(cid)
