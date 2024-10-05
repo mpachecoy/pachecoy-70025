@@ -9,7 +9,7 @@ export class CartDao {
         return await cartsModel.create({products:[]});
     };
 
-    static async update(filter, cart){
+    static async update(filter = {}, cart){
         return await cartsModel.updateOne(filter, cart);
     };
 

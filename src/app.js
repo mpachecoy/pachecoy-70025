@@ -6,7 +6,6 @@ import { router as sessionRouter } from './routes/sessionRouter.js';
 import { router as cartRouter} from "./routes/cartRouter.js";
 import { router as productRouter } from "./routes/productRouter.js";
 import { router as indexRouter} from "./routes/indexRouter.js";
-import {router as ticketRouter} from "./routes/ticketRouter.js"
 import { config } from './config/config.js';
 import cookieParser from 'cookie-parser';
 import { ConndDB } from './ConnDB.js';
@@ -29,7 +28,6 @@ app.use(passport.initialize());
 app.use("/api/sessions", sessionRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/products", productRouter);
-app.use("/api/tickets", ticketRouter);
 app.use("/", indexRouter);
 
 app.get('/',(req,res) => {

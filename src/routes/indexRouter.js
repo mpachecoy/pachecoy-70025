@@ -3,7 +3,7 @@ import { ProductsDao } from "../dao/ProductsDao.js";
 import { auth } from "../middlewares/auth.js";
 import { productsService } from "../services/product.service.js";
 import ProductsController from "../controller/ProductsController.js";
-import CartCootroller from "../controller/CartController.js"
+import CartCootroller from "../controller/CartController.js";
 import CartController from "../controller/CartController.js";
 import { UserDTO } from "../DTO/UserDTO.js";
 

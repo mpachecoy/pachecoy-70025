@@ -11,10 +11,11 @@ class UsersService{
 
     async getUserById(id){
         return await this.dao.getBy({ _id:id });
-    }
+    };
+    
     async getUserByEmail(email){
         let user = await this.dao.getBy({ email });
-        return user
+        return user;
     };
 
     async createUser(user){

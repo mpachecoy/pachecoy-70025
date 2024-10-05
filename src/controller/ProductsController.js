@@ -35,8 +35,8 @@ export default class ProductsController{
 
     static async getBy(req, res){
         try {
-            const { pid } = req.params;
-            const product = await productsService.getById(pid);
+            let { pid } = req.params;
+            let product = await productsService.getById(pid);
             if(!product) return res.status(404).json({ status: "error", msg:"Prodcuto no encontrado"});
         
             res.status(200).json({status:"ok", product});

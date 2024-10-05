@@ -1,38 +1,17 @@
 import mongoose from "mongoose";
 
-export const ticketModel=mongoose.model(
-    "ticket",
+export const ticketModel = mongoose.model(
+    "tickets", 
     new mongoose.Schema(
         {
-            nrOrden: String, 
-            date: Date, 
+            nroTicket: String, 
+            fecha: Date, 
+            email_buyer: String,
             total: Number, 
-            user: {
-                type: mongoose.Schema.Types.ObjectId, 
-                ref: "usuarios"
-            },
-            negocio: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "carts"
-            },
-            negocio: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "products"
-            },
-            detalle:{
-                type:[
-                    {
-                        id: Number, 
-                        description: String, 
-                        price: Number, 
-                        subtotal: Number,
-                        quantity: Number
-                    }
-                ]
+            detail:{
+                type:[]
             }
         },
-        {
-            timestamps:true, strict: false
-        }
+        {timestamps:true}
     )
-)
+);

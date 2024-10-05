@@ -69,6 +69,8 @@ export const iniciaPassport = () => {
             async( username, password, done ) => { 
                 try {
                     let user = await usersService.getUserByEmail(username);
+                    console.log(user)
+                    
                     if(!user || !user.password){
                         return done( null, false, {message:"Credenciales invalidas"} );
                     };

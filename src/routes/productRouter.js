@@ -8,8 +8,8 @@ export const router = Router();
 
 router.get("/", ProductsController.getProducts);
 router.get("/:pid", ProductsController.getBy);
-router.put("/:pid", passportCall("current"), permiso("Admin"), ProductsController.update);
-router.post("/", passportCall("current"), permiso("Admin"),  ProductsController.create);
-router.delete("/:pid", passportCall("current"), permiso("Admin"), ProductsController.delete);
+router.put("/:pid", passportCall("current"), permiso("admin"), ProductsController.update);
+router.post("/", passportCall("current"), permiso("admin"),  ProductsController.create);
+router.delete("/:pid", passportCall("current"), permiso("admin"), ProductsController.delete);
 
 

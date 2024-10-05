@@ -12,6 +12,9 @@ router.post("/:cid/product/:pid", passportCall("current"), CartController.addPro
 
 router.delete("/:cid", passportCall("current"), CartController.delteCart);
 
+router.post('/:cid/purchase', passportCall("current"), CartController.purchaseCart);
+
+
 
 
 
