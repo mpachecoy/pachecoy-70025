@@ -124,20 +124,18 @@ export default class CartController{
             };
     
             const conStock = cart.products.filter( p => p.tieneStock == true );
-
+            
             cart.products = cart.products.filter( p => p.tieneStock == undefined ); 
     
             if(conStock.length === 0){
                 res.setHeader('Content-Type','application/json');
-                return res.status(400).json({error:`No hay ítems`});
+                return res.status(400).json({error:`El producto que quiere comprar no tiene stock suficiente`});
             };
     
             let total = conStock.reduce((acum, item) => acum += item.quantity*item.product.price, 0);
             let nroComp = Date.now();
             let fecha = new Date();
             let email_comprador = req.user.email; 
-
-            console.log(nroComp, fecha, email_comprador, total); //Eliminar
 
             const ticket = await ticketModel.create({
                 nroComp, 
